@@ -1,0 +1,42 @@
+#usda 1.0
+(
+    endTimeCode = 120
+    startTimeCode = 0
+    upAxis = "Y"
+)
+
+def Xform "cube"
+{
+    def Cube "mesh"
+    {
+        color3f[] primvars:displayColor = [(1, 0, 0)]
+        float xformOp:rotateY.timeSamples = {
+            0: 0,
+            120: 360,
+        }
+        float xformOp:rotateZ = 14
+        float xformOp:rotateZ.timeSamples = {
+            0: 14,
+            120: 400,
+        }
+        uniform token[] xformOpOrder = ["xformOp:rotateY", "xformOp:rotateZ"]
+    }
+}
+
+def "cams"
+{
+    def Camera "camera1"
+    {
+        double3 xformOp:translate = (0, 0, 20)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+}
+
+def "Render"
+{
+    def "settings"
+    {
+        prepend rel camera = </cams/camera1>
+    }
+}
+
